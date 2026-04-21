@@ -1,0 +1,36 @@
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.post {
+  width: 300px;
+  padding: 2rem 3rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  box-shadow: 0 10px 10px rgba(23, 81, 175, 0.626);
+}
+.post-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.limit-input {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+  outline-style: none;
+}
+.limit-input:focus {
+  border-bottom: 2px solid blue;
+}
+.posts-page {
+  text-align: center;
+}
+.active {
+  background: rgb(49, 143, 175);
+  color: white;
+}

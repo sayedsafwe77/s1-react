@@ -1,0 +1,30 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  /* position: sticky;
+  top: 0; */
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: #333;
+  color: white;
+  list-style-type: none;
+  width: 80%;
+  text-align: center;
+}
+
+.nav-link {
+  color: white;
+  padding: 10px 20px;
+  display: inline-block;
+  text-decoration: none;
+}
+.nav-link:hover {
+  background-color: lightblue;
+}
+.custom-active {
+  background: red;
+}
