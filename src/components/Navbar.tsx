@@ -35,13 +35,6 @@ export default function Navbar() {
               Todos
             </NavLink>
           </li>
-
-          <li>
-            <NavLink className="nav-link" to="/todo/show">
-              Single Todo
-            </NavLink>
-          </li>
-
           <li>
             <NavLink className="nav-link" to="/todo/create">
               Create Todo
