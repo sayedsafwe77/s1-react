@@ -7,14 +7,15 @@ import Contact from "./pages/Contact.tsx";
 import Index from "./pages/Todo/Index.tsx";
 import Show from "./pages/Todo/Show.tsx";
 import Create from "./pages/Todo/Create.tsx";
-import Edit from "./pages/Todo/Edit.tsx";
 import TournamentShow from "./pages/Tournament/Show.tsx";
-import { testLoader, TodoLoader } from "./Loaders/todo.ts";
-import { getUserMiddleware, testMiddleware } from "./Middlewares/base.ts";
+import { TodoLoader } from "./Loaders/todo.ts";
 import { submitTodo } from "./actions.ts";
+import NotFound from "./pages/Errors/NotFound.tsx";
+import Exception from "./pages/Errors/Exception.tsx";
 
 export default createBrowserRouter([
   {
+    ErrorBoundary: NotFound,
     Component: MainLayout,
     children: [
       {
@@ -23,6 +24,7 @@ export default createBrowserRouter([
       },
       {
         path: "/profile",
+        ErrorBoundary: Exception,
         Component: Profile,
       },
       {
@@ -53,13 +55,18 @@ export default createBrowserRouter([
           {
             path: "create",
             action: submitTodo,
+            loader: TodoLoader,
             Component: Create,
           },
           {
-            path: "edit",
-            loader: testLoader,
-            middleware: [testMiddleware],
-            Component: Edit,
+            path: "edit/:id",
+            lazy: {
+              loader: async () =>
+                (await import("./Loaders/todo.ts")).singleTodoLoader,
+              action: async () => (await import("./actions.ts")).EditTodo,
+              Component: async () =>
+                (await import("./pages/Todo/Edit.tsx")).default,
+            },
           },
         ],
       },

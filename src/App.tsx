@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
+import React, { useState } from "react";
 import "./App.css";
 import Posts from "./components/Posts";
 import { DEFAULT_LIMIT } from "./constants/basic";
 import PaginationButtons from "./components/PaginationButtons";
-import Navbar from "./components/Navbar";
+import type { TodoResponse } from "./types/basic";
 
 function App() {
   const [noOfPags, setNoOfPags] = useState(0);
-  const [limit, setLimit] = useState(DEFAULT_LIMIT);
+  const [limit, setLimit] = useState<number>(DEFAULT_LIMIT);
   const [skip, setSkip] = useState(0);
 
-  const editLimit = (e) => {
-    setLimit(e.target.value ? e.target.value : DEFAULT_LIMIT);
+  const editLimit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLimit(e.target.value ? +e.target.value : DEFAULT_LIMIT);
   };
-  const changePage = (e) => {
-    setSkip(limit * (e.target.textContent - 1));
+  const changePage = (e: React.MouseEvent) => {
+    const btnText = parseInt(
+      (e.target as HTMLButtonElement).textContent ?? "1"
+    );
+    setSkip(limit * (btnText - 1));
   };
-  const pageCount = (data) => {
+  const pageCount = (data: TodoResponse) => {
     setNoOfPags(Math.ceil(data.total / limit));
   };
   return (
@@ -28,7 +28,7 @@ function App() {
         <input
           type="number"
           className="limit-input"
-          onInput={editLimit}
+          onChange={editLimit}
           placeholder="Default limit 10"
         />
         <Posts limit={limit} skip={skip} pageCount={pageCount} />

@@ -9,6 +9,9 @@ export default function Index() {
         {todos.map((todo) => (
           <li key={todo.id} className="todo">
             <Link to={`/todo/show/${todo.id}`}>{todo.todo}</Link>
+            <button>
+              <Link to={`/todo/edit/${todo.id}`}>Edit</Link>
+            </button>
           </li>
         ))}
       </ul>

@@ -40,12 +40,6 @@ export default function Navbar() {
               Create Todo
             </NavLink>
           </li>
-
-          <li>
-            <NavLink className="nav-link" to="/todo/edit">
-              Edit Todo
-            </NavLink>
-          </li>
         </ul>
       </nav>
     </>
