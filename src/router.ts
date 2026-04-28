@@ -9,40 +9,33 @@ import Show from "./pages/Todo/Show.tsx";
 import Create from "./pages/Todo/Create.tsx";
 import Edit from "./pages/Todo/Edit.tsx";
 import TournamentShow from "./pages/Tournament/Show.tsx";
+import PostsIndex from "./pages/Posts/Index.tsx";
 import { testLoader, TodoLoader } from "./Loaders/todo.ts";
-import { getUserMiddleware, testMiddleware } from "./Middlewares/base.ts";
+import { postsLoader } from "./Loaders/posts.ts";
+import { testMiddleware } from "./Middlewares/base.ts";
 import { submitTodo } from "./actions.ts";
+import { postsAction } from "./actions/posts.ts";
 
 export default createBrowserRouter([
   {
     Component: MainLayout,
     children: [
+      { path: "/", Component: App },
+      { path: "/profile", Component: Profile },
+      { path: "/about", Component: About },
+      { path: "/contact", Component: Contact },
+      { path: "/tournament/*", Component: TournamentShow },
       {
-        path: "/",
-        Component: App,
-      },
-      {
-        path: "/profile",
-        Component: Profile,
-      },
-      {
-        path: "/about",
-        Component: About,
-      },
-      {
-        path: "/contact",
-        Component: Contact,
-      },
-      {
-        path: "/tournament/*",
-        Component: TournamentShow,
+        path: "/posts",
+        loader: postsLoader,
+        action: postsAction,
+        Component: PostsIndex,
       },
       {
         path: "/todo",
         children: [
           {
             index: true,
-            // middleware: [getUserMiddleware],
             loader: TodoLoader,
             Component: Index,
           },
