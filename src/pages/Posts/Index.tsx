@@ -31,6 +31,8 @@ export default function PostsIndex() {
   }, [authLoading, user]);
 
   // Reset the create form once the action succeeds.
+  console.log(createFetcher.state);
+
   useEffect(() => {
     if (
       createFetcher.state === "idle" &&
@@ -143,11 +145,13 @@ export default function PostsIndex() {
                 className="btn btn-primary"
                 disabled={createFetcher.state !== "idle"}
               >
-                {createFetcher.state !== "idle" ? "Publishing…" : "Publish"}
+                {createFetcher.state !== "idle" ? "Saving..." : "Publish"}
               </button>
               {createFetcher.data?.ok === false &&
                 createFetcher.data.intent === "create" && (
-                  <span className="post-error">{createFetcher.data.message}</span>
+                  <span className="post-error">
+                    {createFetcher.data.message}
+                  </span>
                 )}
             </div>
           </createFetcher.Form>

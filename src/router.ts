@@ -27,6 +27,7 @@ export default createBrowserRouter([
       { path: "/tournament/*", Component: TournamentShow },
       {
         path: "/posts",
+        middleware: [testMiddleware],
         loader: postsLoader,
         action: postsAction,
         Component: PostsIndex,

@@ -9,7 +9,10 @@ export const api = axios.create({
 
 export type ApiError = { message: string };
 
-export function getApiErrorMessage(err: unknown, fallback = "Request failed"): string {
+export function getApiErrorMessage(
+  err: unknown,
+  fallback = "Request failed"
+): string {
   if (axios.isAxiosError(err)) {
     return err.response?.data?.message || err.message || fallback;
   }

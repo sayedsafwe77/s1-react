@@ -7,7 +7,10 @@ export async function me(): Promise<User | null> {
 }
 
 export async function login(email: string, password: string): Promise<User> {
-  const res = await api.post<{ user: User }>("/auth/login", { email, password });
+  const res = await api.post<{ user: User }>("/auth/login", {
+    email,
+    password,
+  });
   return res.data.user;
 }
 
