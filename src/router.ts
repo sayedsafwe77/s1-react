@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "./layouts/MainLayout.tsx";
 import App from "./App.tsx";
-import Profile from "./pages/Profile.tsx";
 import About from "./pages/About.tsx";
 import Contact from "./pages/Contact.tsx";
 import Index from "./pages/Todo/Index.tsx";
@@ -15,7 +14,8 @@ import { postsLoader } from "./Loaders/posts.ts";
 import { testMiddleware } from "./Middlewares/base.ts";
 import { submitTodo } from "./actions.ts";
 import { postsAction } from "./actions/posts.ts";
-import MemoPosts from "./pages/MemoPosts.tsx";
+import Profile from "./components/Profile.tsx";
+import Parent from "./pages/Parent.tsx";
 
 export default createBrowserRouter([
   {
@@ -25,6 +25,7 @@ export default createBrowserRouter([
       { path: "/profile", Component: Profile },
       { path: "/about", Component: About },
       { path: "/contact", Component: Contact },
+      { path: "/parent", Component: Parent },
       { path: "/tournament/*", Component: TournamentShow },
       {
         path: "/posts",
@@ -32,11 +33,6 @@ export default createBrowserRouter([
         loader: postsLoader,
         action: postsAction,
         Component: PostsIndex,
-      },
-      {
-        path: "/memo",
-        loader: TodoLoader,
-        Component: MemoPosts,
       },
       {
         path: "/todo",

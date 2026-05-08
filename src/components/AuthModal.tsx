@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { getApiErrorMessage } from "../api/client";
 import { useAuth } from "../hooks/useAuth";
 
@@ -19,41 +19,41 @@ export default function AuthModal({
 }: Props) {
   const { login, register } = useAuth();
   const [tab, setTab] = useState<Tab>(initialTab);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
+  const [data, action, isPending] = useActionState(
+    async (prevState, formData) => {
+      try {
+        if (tab === "login") {
+          await login(
+            formData.get("email") as string,
+            formData.get("password") as string
+          );
+          console.log("Logged in successfully");
+        } else {
+          await register(
+            formData.get("username") as string,
+            formData.get("email") as string,
+            formData.get("password") as string
+          );
+        }
+        onClose();
+      } catch (error) {
+        return {
+          error: getApiErrorMessage(error) || "Request failed",
+          email: formData.get("email") as string,
+        };
+      }
+    },
+    null
+  );
 
   useEffect(() => {
     if (open) {
       setTab(initialTab);
-      setError(null);
+      // setError(null);
     }
   }, [open, initialTab]);
 
   if (!open) return null;
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSubmitting(true);
-    try {
-      if (tab === "login") {
-        await login(email, password);
-      } else {
-        await register(username, email, password);
-      }
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      onClose();
-    } catch (err) {
-      setError(getApiErrorMessage(err));
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   return (
     <div
@@ -90,14 +90,13 @@ export default function AuthModal({
           )}
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form" action={action}>
           {tab === "register" && (
             <label className="auth-field">
               <span>Username</span>
               <input
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                name="username"
                 required
                 autoComplete="username"
                 minLength={2}
@@ -108,9 +107,9 @@ export default function AuthModal({
             <span>Email</span>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              defaultValue={data?.email}
               required
+              name="email"
               autoComplete="email"
             />
           </label>
@@ -118,9 +117,8 @@ export default function AuthModal({
             <span>Password</span>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
+              name="password"
               minLength={6}
               autoComplete={
                 tab === "login" ? "current-password" : "new-password"
@@ -128,10 +126,10 @@ export default function AuthModal({
             />
           </label>
 
-          {error && <div className="auth-error">{error}</div>}
+          {data?.error && <div className="auth-error">{data?.error}</div>}
 
-          <button type="submit" className="auth-submit" disabled={submitting}>
-            {submitting
+          <button type="submit" className="auth-submit" disabled={isPending}>
+            {isPending
               ? "Please wait…"
               : tab === "login"
               ? "Sign in"

@@ -2,7 +2,7 @@ import axios from "axios";
 import { userContext } from "../Middlewares/base";
 
 export const TodoLoader = async ({ context }) => {
-  const res = await instance.get("/todos?limit=254");
+  const res = await apiInstance.get("/todos?limit=254");
   return res.data;
 };
 export const testLoader = async ({ context }) => {
@@ -19,7 +19,7 @@ if (import.meta.env.VITE_APP_ENV === "production") {
 } else {
   baseURL = "https://dummyjson.com";
 }
-const instance = axios.create({
+export const apiInstance = axios.create({
   baseURL: baseURL,
   timeout: 1000,
   headers: { "X-Custom-Header": "foobar", "Accept-Language": lang },
