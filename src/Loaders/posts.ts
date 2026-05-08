@@ -13,7 +13,7 @@ export const postsLoader = async ({
   const page = Math.max(1, parseInt(url.searchParams.get("page") || "1") || 1);
   const limit = Math.max(
     1,
-    Math.min(50, parseInt(url.searchParams.get("limit") || "2") || 2)
+    Math.min(50, parseInt(url.searchParams.get("limit") || "10") || 10)
   );
   const mine = url.searchParams.get("mine") === "true";
 

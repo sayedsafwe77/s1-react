@@ -15,6 +15,7 @@ import { postsLoader } from "./Loaders/posts.ts";
 import { testMiddleware } from "./Middlewares/base.ts";
 import { submitTodo } from "./actions.ts";
 import { postsAction } from "./actions/posts.ts";
+import MemoPosts from "./pages/MemoPosts.tsx";
 
 export default createBrowserRouter([
   {
@@ -31,6 +32,11 @@ export default createBrowserRouter([
         loader: postsLoader,
         action: postsAction,
         Component: PostsIndex,
+      },
+      {
+        path: "/memo",
+        loader: TodoLoader,
+        Component: MemoPosts,
       },
       {
         path: "/todo",

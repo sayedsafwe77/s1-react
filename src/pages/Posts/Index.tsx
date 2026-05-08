@@ -31,7 +31,6 @@ export default function PostsIndex() {
   }, [authLoading, user]);
 
   // Reset the create form once the action succeeds.
-  console.log(createFetcher.state);
 
   useEffect(() => {
     if (

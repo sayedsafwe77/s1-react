@@ -2,7 +2,7 @@ import axios from "axios";
 import { userContext } from "../Middlewares/base";
 
 export const TodoLoader = async ({ context }) => {
-  const res = await instance.get("/todos");
+  const res = await instance.get("/todos?limit=254");
   return res.data;
 };
 export const testLoader = async ({ context }) => {
