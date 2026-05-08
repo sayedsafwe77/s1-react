@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
 import { getApiErrorMessage } from "../api/client";
+import { useAuth } from "../hooks/useAuth";
 
 type Tab = "login" | "register";
 
@@ -122,7 +122,9 @@ export default function AuthModal({
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              autoComplete={tab === "login" ? "current-password" : "new-password"}
+              autoComplete={
+                tab === "login" ? "current-password" : "new-password"
+              }
             />
           </label>
 

@@ -6,12 +6,12 @@ import {
   type Fetcher,
 } from "react-router";
 import "../../styles/Posts.css";
-import { useAuth } from "../../context/AuthContext";
 import AuthModal from "../../components/AuthModal";
 import PostCard from "./PostCard";
 import type { Post } from "../../types/basic";
 import type { PostsLoaderData } from "../../Loaders/posts";
 import type { PostsActionResult } from "../../actions/posts";
+import { useAuth } from "../../hooks/useAuth";
 
 const PAGE_SIZE_OPTIONS = [5, 10, 20];
 

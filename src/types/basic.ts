@@ -40,6 +40,18 @@ interface Todo {
   completed: boolean;
   userId: number;
 }
+interface AuthContextValue {
+  user: User | null;
+  loading: boolean;
+  login: (email: string, password: string) => Promise<User>;
+  register: (
+    username: string,
+    email: string,
+    password: string
+  ) => Promise<User>;
+  logout: () => Promise<void>;
+  refresh: () => Promise<void>;
+}
 
 export type {
   Post,
@@ -48,4 +60,5 @@ export type {
   User,
   PaginationButtonsProps,
   Todo,
+  AuthContextValue,
 };
